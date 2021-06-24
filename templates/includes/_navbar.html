@@ -49,27 +49,39 @@
 
         <!-- Checking for user authentication -->
         {% if user.is_authenticated %}
-        <!-- Add Post -->
+
+        <!-- Add Post (if user is authenticated then this will be shown)-->
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add_post' %}">Add Post</a>
         </li>
 
-        <!-- Add new category link -->
+        <!-- Add new category link (if user is authenticated then this will be shown)-->
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add_category' %}">Add Category</a>
         </li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Add Post</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Add Category</a>
-        </li>
+
+        <!-- Add Post disabled button (if user is not authenticated the this will be shown)) -->
+        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="bottom"
+          title="Please Login or register to write the post">
+          <li class="nav-item">
+            <a role="button" class="nav-link disabled" href="#">Add Post</a>
+          </li>
+        </span>
+
+        <!-- Add Category disabled button (if user is not authenticated the this will be shown)) -->
+        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="bottom"
+          title="Please Login or register to app category">
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Add Category</a>
+          </li>
+        </span>
         {% endif %}
       </ul>
 
-      <!-- Login and regidter button -->
+      <!-- User authentication loops -->
       <div class="btn-group dropstart">
+        <!-- Checking user authentication -->
         {% if user.is_authenticated %}
         <button type="button" class="btn btn-danger dropdown-toggle-split" data-bs-toggle="dropdown"
           aria-expanded="false">
@@ -80,16 +92,33 @@
           </svg>
           <span class="visually-hidden">Toggle Dropright</span>
         </button>
+
+        <!--user settings dropdown  -->
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+          <!-- User Edit Profile -->
           <li><a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a></li>
+
+          <!-- checking user profile-->
           {% if user.profile.id %}
-          <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">See Profile></a></li>
+
+          <!-- See Profile -->
+          <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">See Profile</a></li>
+
+          <!-- Edit Profile -->
           <li><a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit Profile</a></li>
-          {% else %}
+
+          {% else %} <!--If user is not having profile -->
+
+          <!-- create profile -->
           <li><a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile</a></li>
           {% endif %}
+
+          <!-- Logout -->
           <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
         </ul>
+
+        <!-- See usernmae -->
         <a type="button" class="btn btn-outline-success" href="#">
           Welcome <strong>{{ user.first_name }} {{ user.last_name }}</strong>
         </a>
