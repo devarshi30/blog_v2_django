@@ -4,7 +4,6 @@
 
 {% if user.is_authenticated %}
 <h1>Add Post...</h1>
-<br /><br />
 <div class="form-group">
 
 	<form method="POST" enctype="multipart/form-data">
@@ -12,11 +11,12 @@
 		{{ form.media }}
 		{{ form.as_p }}
 		<button class="btn btn-secondary">Post</button>
+	</form>
 </div>
 
 <script>
 	var name = "{{ user.id }}";
-	document.getElementById("elder").value = name;
+	document.getElementById("author").value = name;
 </script>
 {% else %}
 
