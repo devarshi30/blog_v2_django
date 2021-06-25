@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-
     <!-- Brand Logo -->
     <a class="navbar-brand" href="{% url 'home' %}">
       <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-bootstrap-fill"
@@ -21,7 +20,14 @@
 
         <!-- Home -->
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+          <!-- This loop is to set active class in navbar -->
+          <a 
+          {% if '/' == request.path %}
+            class="nav-link active"
+            {% else %}
+            class="nav-link"
+          {% endif %}
+          aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
 
         <!-- Category dropdown -->
@@ -43,7 +49,14 @@
         </li>
         {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'category-list' %}">Categories</a>
+          <!-- This loop is to set active class in navbar -->
+          <a
+          {% if 'category-list' in request.path %}
+            class="nav-link active"
+            {% else %}
+            class="nav-link"
+          {% endif %}
+          href="{% url 'category-list' %}">Categories</a>
         </li>
         {% endif %}
 
@@ -52,12 +65,25 @@
 
         <!-- Add Post (if user is authenticated then this will be shown)-->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'add_post' %}">Add Post</a>
+        <!-- This loop is to set active class in navbar -->
+          <a
+            {% if 'add_post' in request.path %}
+              class="nav-link active"
+            {% else %}
+              class="nav-link"
+            {% endif %}
+          href="{% url 'add_post' %}">Add Post</a>
         </li>
 
         <!-- Add new category link (if user is authenticated then this will be shown)-->
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'add_category' %}">Add Category</a>
+          <a 
+          {% if 'add_category' in request.path %}
+            class="nav-link active"
+          {% else %}
+            class="nav-link"
+          {% endif %}
+          href="{% url 'add_category' %}">Add Category</a>
         </li>
         {% else %}
 
@@ -130,11 +156,3 @@
     </div>
   </div>
 </nav>
-
-<div class="container nav-scroller py-1 mb-2">
-    <nav class="nav d-flex justify-content-between">
-    {% for item in cat_menu %}
-      <a class="p-2 link-secondary" href="{% url 'category' item.id %}">{{ item }}</a>
-    {% endfor %}
-    </nav>
-</div>
