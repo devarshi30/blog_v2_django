@@ -15,7 +15,7 @@ class PostForm(forms.ModelForm):
 			'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Blog title'}),
 			'title_tag': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Blog tag'}),
 			'author': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id':'author', 'type':'hidden'}),
-			'header_image': forms.TextInput(attrs={'class':'form-control', 'type':'file'}),
+			'header_image': forms.FileInput(attrs={'class':'form-control'}),
 			'category': forms.Select(choices=choice_list, attrs={'class': 'form-control', 'placeholder':'Add Category'}),	
 			'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'Write Your blog'}),			
 			'snippet': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'Please write a small description about your blog'}),			
