@@ -12,12 +12,13 @@ class PostForm(forms.ModelForm):
 		fields = ('title', 'title_tag', 'author', 'category', 'body', 'snippet', 'header_image')
 
 		widgets = {
-			'title': forms.TextInput(attrs={'class': 'form-control'}),
-			'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
+			'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Blog title'}),
+			'title_tag': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Blog tag'}),
 			'author': forms.TextInput(attrs={'class': 'form-control', 'value':'', 'id':'author', 'type':'hidden'}),
-			'category': forms.Select(choices=choice_list, attrs={'class': 'form-control'}),
-			'body': forms.Textarea(attrs={'class': 'form-control'}),			
-			'snippet': forms.Textarea(attrs={'class': 'form-control'}),			
+			'header_image': forms.TextInput(attrs={'class':'form-control', 'type':'file'}),
+			'category': forms.Select(choices=choice_list, attrs={'class': 'form-control', 'placeholder':'Add Category'}),	
+			'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'Write Your blog'}),			
+			'snippet': forms.Textarea(attrs={'class': 'form-control', 'placeholder':'Please write a small description about your blog'}),			
 		}
 
 

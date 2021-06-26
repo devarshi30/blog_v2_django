@@ -4,15 +4,51 @@
 
 {% if user.is_authenticated %}
 <h1>Add Post...</h1>
-<div class="form-group">
+	<div class="form-group">
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.media }}
+			<div class="row">
+				<div class="col-md-6">
+					<label class="form-label">Title</label>
+					{{form.title}}
+				</div>
 
-	<form method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
-		{{ form.media }}
-		{{ form.as_p }}
-		<button class="btn btn-secondary">Post</button>
-	</form>
-</div>
+				<div class="col-md-6">
+					<label class="form-label">Add tag</label>
+					{{ form.title_tag }}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<label class="form-label">Select Category</label>
+					{{form.category}}
+				</div>
+				
+				<div class="col-md-6">
+					<label class="form-label">Upload file</label><br>
+					{{form.header_image}}
+				</div>
+			</div>
+
+			<div>
+				<label class="form-label">Write blog</label><br>
+				{{ form.body }}
+			</div>
+
+			<div>
+				<label class="form-label">Snippet</label><br>
+				{{ form.snippet }}
+			</div>
+
+			<div>
+				{{ form.author }}
+			</div>
+
+			<button class="btn btn-lg btn-secondary mb-2 mt-2">Post Blog</button>
+		</form>
+	</div>
 
 <script>
 	var name = "{{ user.id }}";
