@@ -20,7 +20,7 @@
 						Author - <span style="color: #660066;">
 							{{ post.author.first_name }} {{ post.author.last_name }}</h6>
 					</span>
-					<p class="card-text">{{ post.snippet }}</p>
+					<p class="card-text">{{ post.snippet|truncatewords:20 }}</p>
 					<div class="d-flex justify-content-between align-items-center">
 
 						{% if user.is_authenticated %}

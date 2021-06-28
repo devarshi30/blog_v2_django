@@ -4,6 +4,8 @@ from .models import Post, Category, Comment
 from .forms import PostForm, EditForm, CommentForm
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+#def home(request):
+#	return render(request, 'home.html', {})
 
 def LikeView(request, pk):
 	post = get_object_or_404(Post, id=request.POST.get('post_id'))
@@ -15,13 +17,14 @@ def LikeView(request, pk):
 		post.likes.add(request.user)
 		liked = True
 	
-	return HttpResponseRedirect(reverse('theblog/article-detail', args=[str(pk)]))
+	return HttpResponseRedirect(reverse('article-detail', args=[str(pk)]))
 
 class HomeView(ListView):
 	model = Post
-	template_name = 'theblog/home.html'
+	template_name = 'home.html'
 	cats = Category.objects.all()
 	ordering = ['-post_date']
+	#ordering = ['-id']
 
 	def get_context_data(self, *args, **kwargs):
 		cat_menu = Category.objects.all()
@@ -31,17 +34,18 @@ class HomeView(ListView):
 
 def CategoryListView(request):
 	cat_menu_list = Category.objects.all()
-	return render(request, 'theblog/category_list.html', {'cat_menu_list':cat_menu_list})
+	return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list})
 
 
 
-def CategoryView(request, id):
-	category_posts = Post.objects.filter(category=id)
-	return render(request, 'theblog/categories.html', {'cats':id, 'category_posts':category_posts})
+def CategoryView(request, cats):
+	category_posts = Post.objects.filter(category=cats.replace('-', ' '))
+	return render(request, 'categories.html', {'cats':cats.replace('-', ' ').title(), 'category_posts':category_posts})
+
 
 class ArticleDetailView(DetailView):
 	model = Post
-	template_name = 'theblog/article_details.html'
+	template_name = 'article_details.html'
 
 	def get_context_data(self, *args, **kwargs):
 		cat_menu = Category.objects.all()
@@ -62,12 +66,15 @@ class ArticleDetailView(DetailView):
 class AddPostView(CreateView):
 	model = Post
 	form_class = PostForm
-	template_name = 'theblog/add_post.html'
+	template_name = 'add_post.html'
+	#fields = '__all__'
+	#fields = ('title', 'body')
 
 class AddCommentView(CreateView):
 	model = Comment
 	form_class = CommentForm
-	template_name = 'theblog/add_comment.html'
+	template_name = 'add_comment.html'
+	#fields = '__all__'
 	def form_valid(self, form):
 		form.instance.post_id = self.kwargs['pk']
 		return super().form_valid(form)
@@ -76,15 +83,18 @@ class AddCommentView(CreateView):
 
 class AddCategoryView(CreateView):
 	model = Category
-	template_name = 'theblog/add_category.html'
+	#form_class = PostForm
+	template_name = 'add_category.html'
 	fields = '__all__'
+	#fields = ('title', 'body')
 
 class UpdatePostView(UpdateView):
 	model = Post
 	form_class = EditForm
-	template_name = 'theblog/update_post.html'
+	template_name = 'update_post.html'
+	#fields = ['title', 'title_tag', 'body']
 
 class DeletePostView(DeleteView):
 	model = Post
-	template_name = 'theblog/delete_post.html'
+	template_name = 'delete_post.html'
 	success_url = reverse_lazy('home')
