@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Category, Comment
 from .forms import PostForm, EditForm, CommentForm
@@ -38,9 +38,9 @@ def CategoryListView(request):
 
 
 
-def CategoryView(request, cats):
-	category_posts = Post.objects.filter(category=cats.replace('-', ' '))
-	return render(request, 'categories.html', {'cats':cats.replace('-', ' ').title(), 'category_posts':category_posts})
+def CategoryView(request, id):
+	category_posts = Post.objects.filter(category=id)
+	return render(request, 'categories.html', {'cats':id, 'category_posts':category_posts})
 
 
 class ArticleDetailView(DetailView):
@@ -98,3 +98,7 @@ class DeletePostView(DeleteView):
 	model = Post
 	template_name = 'delete_post.html'
 	success_url = reverse_lazy('home')
+
+
+def profile(request):
+	return render(request, 'user_profile.html')
