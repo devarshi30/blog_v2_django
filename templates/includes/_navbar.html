@@ -145,7 +145,7 @@
         </ul>
 
         <!-- See usernmae -->
-        <a type="button" class="btn btn-outline-success" href="{% url 'profile'%}">
+        <a type="button" class="btn btn-outline-success" href="{% url 'show_profile' user.profile.id %}">
           Welcome <strong>{{ user.first_name }} {{ user.last_name }}</strong>
         </a>
       </div>

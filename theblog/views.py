@@ -98,7 +98,3 @@ class DeletePostView(DeleteView):
 	model = Post
 	template_name = 'delete_post.html'
 	success_url = reverse_lazy('home')
-
-
-def profile(request):
-	return render(request, 'user_profile.html')

@@ -25,7 +25,9 @@
 <br />
 
 {% if post.header_image %}
-<img src="{{ post.header_image.url }}">
+	<div>
+		<img src="{{ post.header_image.url }}" width="100%">
+	</div>
 {% endif %}
 
 <br /><br />
@@ -104,8 +106,6 @@
 					{% if post.author.profile.pinterest_url %}
 					| <a href="{{ post.author.profile.pinterest_url }}">Pinterest</a>
 					{% endif %}
-
-
 				</p>
 
 

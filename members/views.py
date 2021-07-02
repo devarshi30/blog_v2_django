@@ -4,8 +4,9 @@ from django.views.generic import DetailView, CreateView
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
+from django.views.generic.list import ListView
 from .forms import SignUpForm, EditProfileForm, PasswordChangingForm, ProfilePageForm
-from theblog.models import Profile
+from theblog.models import Profile, Post, Category
 
 class CreateProfilePageView(CreateView):
 	model = Profile
@@ -25,7 +26,7 @@ class EditProfilePageView(generic.UpdateView):
 
 class ShowProfilePageView(DetailView):
 	model = Profile
-	template_name = 'registration/user_profile.html'
+	template_name = 'user_profile.html'
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(ShowProfilePageView, self).get_context_data(*args, **kwargs)
