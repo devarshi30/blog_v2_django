@@ -19,13 +19,13 @@ class CreateProfilePageView(CreateView):
 		return super().form_valid(form)
 
 class EditProfilePageView(generic.UpdateView):
-	model = Profile
+	model = Profile	
 	template_name = 'registration/edit_profile_page.html'
 	fields = ['bio', 'profile_pic', 'website_url', 'facebook_url', 'twitter_url', 'instagram_url', 'pinterest_url']
 	success_url = reverse_lazy('home')
 
 class ShowProfilePageView(DetailView):
-	model = Profile
+	model = Profile, Post
 	template_name = 'user_profile.html'
 
 	def get_context_data(self, *args, **kwargs):
@@ -33,6 +33,12 @@ class ShowProfilePageView(DetailView):
 		page_user = get_object_or_404(Profile, id=self.kwargs['pk'])
 		context["page_user"] = page_user
 		return context
+
+	def get_post_data(self, *args, **kwargs):
+		context1 = super(ShowProfilePageView, self).get_context1_data(*args, **kwargs)
+		post_data = get_object_or_404(Post)
+		context1["post_data"] = post_data
+		return context1
 
 class PasswordsChangeView(PasswordChangeView):
 	form_class = PasswordChangingForm
